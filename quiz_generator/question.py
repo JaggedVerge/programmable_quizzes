@@ -15,12 +15,16 @@ class Question:
         """
         self.question_template = question_template
         self.answer_template = answer_template
+        self.question_inputs = inputs
 
     def question_to_latex(self):
         """Write out a representation of the question to LaTeX"""
-        raise NotImplementedError
+        if self.question_inputs:
+            return self.question_template.render(self.question_inputs)
+        else:
+            return self.question_template 
 
     def answer_to_latex(self):
         """Write out a representation of the answer to LaTeX"""
-        raise NotImplementedError
+        return self.answer_template
 
