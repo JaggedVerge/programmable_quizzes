@@ -1,0 +1,19 @@
+#Config file for automatic testing at travis-ci.org
+
+language: python
+sudo: false
+
+python:
+   - 3.4
+   - 3.5
+
+before_install:
+   - pip install pytest-cov
+   - pip install coveralls
+
+script:
+   - py.test
+   - py.test --cov quiz_generation
+
+after_success:
+   - coveralls
