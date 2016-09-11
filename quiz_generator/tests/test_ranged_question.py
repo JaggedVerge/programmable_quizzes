@@ -3,7 +3,10 @@ Tests for ranged questions
 """
 from unittest.mock import Mock
 
-from quiz_generator.ranged_question import RangedQuestion
+from quiz_generator.ranged_question import (
+    RangedQuestion,
+    extract_random_input_combination,
+)
 from quiz_generator.question import Question
 
 def test_question_generation_no_inputs():
@@ -45,3 +48,13 @@ def test_question_generation():
     generated_question = question_with_function_over_range.create_specific_question()
     assert generated_question.question_to_latex() in ("What is 1^2 ?", "What is 2^2 ?")
     assert generated_question.answer_to_latex() in ("1", "4")
+
+def test_extract_random_input_combination():
+    """Test helper function that extracts a single value from a dictionary containing choices"""
+    # case where values are not collections must return the same value back
+    no_choices = {
+        'a': 1,
+        'b': 2,
+    }
+
+    assert extract_random_input_combination(no_choices) == no_choices

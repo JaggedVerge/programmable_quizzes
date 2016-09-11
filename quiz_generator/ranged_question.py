@@ -5,14 +5,16 @@ from .question import Question
 
 def extract_random_input_combination(inputs_mapping):
     """Extract a random input choice from the given dictionary of possible inputs.
+    For each key this will chose an element at random if the value is a collection
+    and will choose the value directly if it is not a collection.
     Example usage:
 
     >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
     {1: 'a', 2: 'c'}
     >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
     {1: 'b', 2: 'c'}
-    >>> extract_random_input_combination({1: 'a', 2: ['c']})
-    {1: 'a', 2: 'c'}
+    >>> extract_random_input_combination({1: 'not a collection', 2: ['c']})
+    {1: 'not a collection', 2: 'c'}
 
     """
     raise NotImplementedError
