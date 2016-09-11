@@ -12,5 +12,6 @@ setup(name='randomized_quiz_generator',
           'Programming Language :: Python',
       ],
       keywords='',
+      install_requires=['jinja2'],
 )
 
