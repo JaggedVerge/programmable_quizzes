@@ -4,7 +4,11 @@ Representation of a question.
 import jinja2
 
 class Question:
-    """Object that stores a question"""
+    """
+    This class stores a simple question/answer pairing along with the required
+    information to calculate an answer from given inputs.
+    All formatting is done via templates that are passed in.
+    """
     def __init__(self, question_template, answer_template, inputs=None, answer_generation_function=None):
         """
         :question_template: a template for the question
@@ -17,7 +21,7 @@ class Question:
         if isinstance(question_template, str):
             self.question_template = jinja2.Template(question_template)
         elif isinstance(question_template, jinja2.Template):
-             self.question_template = question_template
+            self.question_template = question_template
         else:
             raise TypeError(
                     "question_template must be type str or jinja2.Template, got {} instead".format(

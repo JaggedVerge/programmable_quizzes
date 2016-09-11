@@ -22,7 +22,7 @@ Marking sheet for {{ quiz_name }} version {{ quiz_version }}
 """)
 
 class Quiz:
-    """Represents a Quiz"""
+    """Represents a particlar instance of a Quiz"""
 
     def __init__(self, questions, quiz_name="", quiz_version="",
                  preamble=None, quiz_questions_template=default_quiz_template,
