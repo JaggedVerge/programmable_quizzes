@@ -10,9 +10,10 @@ python:
 before_install:
    - pip install pytest-cov
    - pip install coveralls
+   - pip install tox-travis
 
 script:
-   - py.test
+   - tox
    - py.test --cov quiz_generation
 
 after_success:
