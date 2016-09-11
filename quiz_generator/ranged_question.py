@@ -3,6 +3,10 @@ Representation of a question with a range of input values
 """
 from .question import Question
 
+def extract_random_input_combination(inputs_mapping):
+    """Extract a random input choice from the given dictionary of possible inputs"""
+    raise NotImplementedError
+
 class RangedQuestion:
     """Helper class for generating questions"""
     def __init__(self, question_template, answer_template,
@@ -25,10 +29,20 @@ class RangedQuestion:
         Create a specific singular instance of this Question by choosing a value
         from the inputs
         """
+        # If no inputs then we have only one choice possible which is as follows:
+        if self.question_inputs is None:
+            return Question(
+                question_template=self.question_template,
+                answer_template=self.answer_template,
+                inputs=None,
+                answer_generation_function=self.answer_generation_function
+            )
+
+        specific_input = extract_random_input_combination(self.question_inputs)
         return Question(
             question_template=self.question_template,
             answer_template=self.answer_template,
-            inputs=self.question_inputs,
+            inputs=specific_input,
             answer_generation_function=self.answer_generation_function
         )
 
