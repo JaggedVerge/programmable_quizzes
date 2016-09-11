@@ -32,6 +32,10 @@ class Quiz:
         :quiz_name: The name of this quiz
         :quiz_version: The version of the quiz
         :preamble: Text to appear before quiz any questions
+        :quiz_questions_template: A template to display the quiz questions.
+                                  See the default for an example.
+        :default_marking_sheet_template: A template to display the marking sheet.
+                                         See the default for an example.
         """
         self.questions = questions
         self.quiz_name = quiz_name
