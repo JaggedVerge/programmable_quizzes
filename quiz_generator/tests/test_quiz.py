@@ -14,9 +14,11 @@ def test_quiz_creation():
         quiz_version="Unit test version",
         preamble="Preamble, preamble, more preamble"
     )
+    assert question1 in example_quiz.questions
 
     question2 = Mock()
     example_quiz.add_question(question2)
+    assert question2 in example_quiz.questions
 
 def test_quiz_creation():
     """Test question output is correctly generated for a Quiz"""
