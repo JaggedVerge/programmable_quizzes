@@ -1,6 +1,8 @@
 """
 Tests for question class
 """
+import pytest
+
 from quiz_generator.question import Question
 
 def test_question_with_no_substitution():
@@ -22,3 +24,17 @@ def test_question_with_template():
     )
     assert question_with_template.question_to_latex() == "Hi I'm bob!"
     assert question_with_template.answer_to_latex() == "This wasn't really a question, so there's no answer"
+
+def test_bad_parameters_to_question():
+    """Test that bad parameters passed to Question raise exceptions"""
+    with pytest.raises(TypeError):
+        Question(
+            question_template="This is a string",
+            answer_template=0.123
+        )
+
+    with pytest.raises(TypeError):
+        Question(
+            question_template=1234,
+            answer_template="This is a string"
+        )
