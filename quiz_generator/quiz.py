@@ -10,14 +10,14 @@ default_quiz_template = jinja2.Template("""
 
 {% for question in questions %}
     Question #{{ loop.index }}:
-    {{ question }}
+    {{ question.question_to_latex}}
 {% endfor %}
 """)
 
 default_marking_sheet_template = jinja2.Template("""
 Marking sheet for {{ quiz_name }} version {{ quiz_version }}
-{% for answer in answers %}
-    Answer for question ${{loop.index}}: {{ answer }}
+{% for question in questions %}
+    Answer for question ${{loop.index}}: {{ question.answer_to_latex }}
 {% endfor %}
 """)
 
@@ -46,26 +46,18 @@ class Quiz:
 
     def create_marking_sheet(self):
         """Create a marking sheet for this quiz"""
-        answers = []
-        for question in self.questions:
-            answers.append(question.answer_to_latex)
-
         rendered_output = self.marking_sheet_template.render({
             "quiz_name": self.quiz_name,
             "quiz_version": self.quiz_version,
-            "answers": answers,
+            "questions": self.questions,
         })
         return rendered_output
 
     def quiz_to_latex(self):
         """Output the quiz in a LaTeX format"""
-        question_texts = []
-        for question in self.questions:
-            question_texts.append(question.question_to_latex)
-
         rendered_output = self.quiz_questions_template.render({
             "quiz_name": self.quiz_name,
             "quiz_version": self.quiz_version,
-            "questions": question_texts,
+            "questions": self.questions,
         })
         return rendered_output
