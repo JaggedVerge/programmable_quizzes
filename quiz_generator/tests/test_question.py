@@ -25,6 +25,31 @@ def test_question_with_template():
     assert question_with_template.question_to_latex() == "Hi I'm bob!"
     assert question_with_template.answer_to_latex() == "This wasn't really a question, so there's no answer"
 
+def test_question_with_function():
+    """Test a question is generated with a provided function"""
+    import jinja2
+    inputs = {"a": 1, "b": 2}
+    def answer_function(input_values):
+        """
+        Simple function that adds 2 numbers. These are stored in the input
+        values dictionary under the keys 'a' and 'b'.
+        Note the return value is a dictionary because this is required for rendering
+        the answer.
+        """
+        ans = input_values['a'] + input_values['b']
+        return {"answer": ans}
+
+    q_template = jinja2.Template("What is {{a}}+{{b}} ?")
+    a_template = jinja2.Template("{{answer}}")
+    question_with_function = Question(
+        question_template=q_template,
+        answer_template=a_template,
+        inputs=inputs,
+        answer_generation_function=answer_function
+    )
+    assert question_with_function.question_to_latex() == "What is 1+2 ?"
+    assert question_with_function.answer_to_latex() == "3"
+
 def test_bad_parameters_to_question():
     """Test that bad parameters passed to Question raise exceptions"""
     with pytest.raises(TypeError):
