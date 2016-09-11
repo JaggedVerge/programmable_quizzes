@@ -8,13 +8,10 @@ python:
    - 3.5
 
 before_install:
-   - pip install pytest-cov
-   - pip install coveralls
    - pip install tox-travis
-
 script:
    - tox
-   - py.test --cov quiz_generation
-
+env:
+   - TOXENV=coverage
 after_success:
    - coveralls
