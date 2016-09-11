@@ -7,7 +7,7 @@ class Question:
     def __init__(self, question_template, answer_template, inputs=None, answer_generation_function=None):
         """
         :question_template: a template for the question
-        :answer_template: a tempalte for the answer
+        :answer_template: a template for the answer
         :inputs: a dictionary of substitutions to make in the templates
         :answer_generation_function: a function that takes the variables found in the
                                      question template and returns a dictionary of answer
@@ -16,6 +16,8 @@ class Question:
         self.question_template = question_template
         self.answer_template = answer_template
         self.question_inputs = inputs
+        if answer_generation_function:
+            self.answers = answer_generation_function(inputs)
 
     def question_to_latex(self):
         """Write out a representation of the question to LaTeX"""
@@ -26,5 +28,8 @@ class Question:
 
     def answer_to_latex(self):
         """Write out a representation of the answer to LaTeX"""
-        return self.answer_template
+        if answer_generation_function:
+            retrun self.answer_template.render(self.answers)
+        else:
+            return self.answer_template
 
