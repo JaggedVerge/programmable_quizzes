@@ -4,7 +4,17 @@ Representation of a question with a range of input values
 from .question import Question
 
 def extract_random_input_combination(inputs_mapping):
-    """Extract a random input choice from the given dictionary of possible inputs"""
+    """Extract a random input choice from the given dictionary of possible inputs.
+    Example usage:
+
+    >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
+    {1: 'a', 2: 'c'}
+    >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
+    {1: 'b', 2: 'c'}
+    >>> extract_random_input_combination({1: 'a', 2: ['c']})
+    {1: 'a', 2: 'c'}
+
+    """
     raise NotImplementedError
 
 class RangedQuestion:
