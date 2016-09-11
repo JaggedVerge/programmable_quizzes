@@ -18,6 +18,25 @@ def test_quiz_creation():
     question2 = Mock()
     example_quiz.add_question(question2)
 
+def test_quiz_creation():
+    """Test question output is correctly generated for a Quiz"""
+    question_1_text = "Content of question1"
+    question_2_text = "Content of question2"
+    question1 = Mock()
+    question1.question_to_latex = question_1_text
+    question2 = Mock()
+    question2.question_to_latex = question_2_text
+
+    name = "Mock quiz"
+    test_quiz = Quiz(
+        questions=[question1, question2],
+        quiz_name=name
+    )
+    rendered_quiz = test_quiz.quiz_to_latex()
+    assert name in rendered_quiz
+    assert question_1_text in rendered_quiz
+    assert question_2_text in rendered_quiz
+
 def test_marking_sheet():
     """Test marking sheet correctly made for a Quiz"""
     answer_to_q_1 = "Answer to question1"

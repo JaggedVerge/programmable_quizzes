@@ -10,7 +10,7 @@ default_quiz_template = jinja2.Template("""
 
 {% for question in questions %}
     Question #{{ loop.index }}:
-    {{ question.question_to_latex }}
+    {{ question }}
 {% endfor %}
 """)
 
@@ -59,4 +59,13 @@ class Quiz:
 
     def quiz_to_latex(self):
         """Output the quiz in a LaTeX format"""
-        raise NotImplementedError
+        question_texts = []
+        for question in self.questions:
+            question_texts.append(question.question_to_latex)
+
+        rendered_output = self.quiz_questions_template.render({
+            "quiz_name": self.quiz_name,
+            "quiz_version": self.quiz_version,
+            "questions": question_texts,
+        })
+        return rendered_output
