@@ -20,9 +20,9 @@ class RangedQuestion:
         self.question_inputs = inputs
         self.answer_generation_function = answer_generation_function
 
-    def create_question(self):
+    def create_specific_question(self):
         """
-        Create a specific instance of this Question by choosing a value
+        Create a specific singular instance of this Question by choosing a value
         from the inputs
         """
         return Question(
@@ -31,3 +31,9 @@ class RangedQuestion:
             inputs=self.question_inputs,
             answer_generation_function=self.answer_generation_function
         )
+
+    def create_all_questions(self):
+        """
+        Create all possible question from the input combinations
+        """
+        raise NotImplementedError
