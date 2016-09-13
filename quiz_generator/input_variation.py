@@ -28,11 +28,19 @@ Without a wrapper class or other metadata we cannot simultaneously make that dis
 and allow for choices to be taken from the items.
 """
 
+
 class Variation:
     """This class manages choice based inputs"""
+    SEQUENTIAL = 1
+    RANDOM = 2
 
-    def __init__(self, selection_method=None):
+    def __init__(self, items, selection_method=SEQUENTIAL):
         """
         :selection_method: the strategy to pick items from this group
         """
-        raise NotImplementedError
+        self.items = items
+
+    def get(self):
+        """Yield next item"""
+        for item in self.items:
+            yield item
