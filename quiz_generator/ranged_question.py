@@ -2,22 +2,30 @@
 Representation of a question with a range of input values
 """
 from .question import Question
+from .input_variation import Variation
 
-def extract_random_input_combination(inputs_mapping):
+def extract_input_combination(inputs_mapping):
     """Extract a random input choice from the given dictionary of possible inputs.
-    For each key this will chose an element at random if the value is a collection
-    and will choose the value directly if it is not a collection.
+    For each key this will chose an element from a Variation otherwise it and will
+    choose the value directly.
     Example usage:
 
     >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
-    {1: 'a', 2: 'c'}
-    >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
+    {1: ['a', 'b'], 2: 'c'}
+    >>> extract_random_input_combination({1: Variation(['a', 'b']), 2: ['c']})
     {1: 'b', 2: 'c'}
-    >>> extract_random_input_combination({1: 'not a collection', 2: ['c']})
+    >>> extract_random_input_combination({1: 'Example string', 2: ['c']})
     {1: 'not a collection', 2: 'c'}
 
     """
-    raise NotImplementedError
+    results = {}
+    for key, value in inputs_mapping.items():
+        if isinstance(value, Variation):
+            results[key] = next(value.get())
+        else:
+            results[key] = value
+    return results
+
 
 class RangedQuestion:
     """Helper class for generating questions"""
@@ -50,7 +58,7 @@ class RangedQuestion:
                 answer_generation_function=self.answer_generation_function
             )
 
-        specific_input = extract_random_input_combination(self.question_inputs)
+        specific_input = extract_input_combination(self.question_inputs)
         return Question(
             question_template=self.question_template,
             answer_template=self.answer_template,
@@ -60,6 +68,6 @@ class RangedQuestion:
 
     def create_all_questions(self):
         """
-        Create all possible question from the input combinations
+        Create all possible questions from the input combinations
         """
         raise NotImplementedError
