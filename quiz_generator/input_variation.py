@@ -26,6 +26,16 @@ just an element from the list?
 
 Without a wrapper class or other metadata we cannot simultaneously make that distinction
 and allow for choices to be taken from the items.
+
+Variations make the intent explicit:
+
+{
+"parameter1": Variation(['a', 'b', 'c']),
+"parameter2": ['z'],
+}
+
+This explicitly chooses an item from the list.
+
 """
 
 
