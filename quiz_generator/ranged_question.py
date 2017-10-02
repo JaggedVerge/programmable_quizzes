@@ -5,18 +5,20 @@ from .question import Question
 from .input_variation import Variation
 
 def extract_input_combination(inputs_mapping):
-    """Extract a random input choice from the given dictionary of possible inputs.
+    """Extract an input combination from the possible inputs.
     For each key this will chose an element from a Variation otherwise it and will
     choose the value directly.
     Example usage:
 
-    >>> extract_random_input_combination({1: ['a', 'b'], 2: ['c']})
+    >>> extract_input_combination({1: ['a', 'b'], 2: ['c']})
     {1: ['a', 'b'], 2: 'c'}
-    >>> extract_random_input_combination({1: Variation(['a', 'b']), 2: ['c']})
+    >>> extract_input_combination({1: Variation(['a', 'b']), 2: ['c']})
     {1: 'b', 2: 'c'}
-    >>> extract_random_input_combination({1: 'Example string', 2: ['c']})
+    >>> extract_input_combination({1: 'Example string', 2: ['c']})
     {1: 'not a collection', 2: 'c'}
 
+
+    :returns: An input combination allowed by this input mapping
     """
     results = {}
     for key, value in inputs_mapping.items():
@@ -28,7 +30,7 @@ def extract_input_combination(inputs_mapping):
 
 
 class RangedQuestion:
-    """Helper class for generating questions"""
+    """Helper class for generating questions that have a range of possible inputs."""
     def __init__(self, question_template, answer_template,
                  inputs, answer_generation_function=None):
         """
@@ -47,7 +49,9 @@ class RangedQuestion:
     def create_specific_question(self):
         """
         Create a specific singular instance of this Question by choosing a value
-        from the inputs
+        from the inputs.
+        :returns: A specific Question instance
+        :rtype: Question
         """
         # If no inputs then we have only one choice possible which is as follows:
         if self.question_inputs is None:
