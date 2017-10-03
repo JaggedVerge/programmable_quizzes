@@ -31,12 +31,18 @@ def extract_input_combination(inputs_mapping):
     return results
 
 def expand_variations(inputs_mapping):
-    """Expand all Variations values in a mapping to create all possible input combinations.
+    """
+    Expand all Variations values in a mapping to create all possible input combinations.
 
-    >>> create_all_inputs({"a": 1, "b": Variation([2,3])})
+    >>> expand_variations({"a": 1, "b": [2,3]})
+    [{"a": 1, "b": [2,3]}]
+
+    >>> expand_variations({"a": 1, "b": Variation([2,3])})
     [{"a": 1, "b": 2}, {"a": 1, "b": 3}]
 
     :inputs_mapping: a mapping of template keys to values
+    :returns: a list of dictionaries with all Variations values replaced by their
+              expanded contents.
     """
     results = []
     if any(isinstance(value, Variation) for value in inputs_mapping.values()):
