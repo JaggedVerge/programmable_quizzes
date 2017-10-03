@@ -6,6 +6,8 @@ sudo: false
 python:
    - 3.4
    - 3.5
+   - 3.6
+   - "pypy3"
 
 before_install:
    - pip install tox-travis
