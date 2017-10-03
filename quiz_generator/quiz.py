@@ -10,14 +10,14 @@ default_quiz_template = jinja2.Template("""
 
 {% for question in questions %}
     Question #{{ loop.index }}:
-    {{ question.question_to_latex}}
+    {{ question.render_question()}}
 {% endfor %}
 """)
 
 default_marking_sheet_template = jinja2.Template("""
 Marking sheet for {{ quiz_name }} version {{ quiz_version }}
 {% for question in questions %}
-    Answer for question ${{loop.index}}: {{ question.answer_to_latex }}
+    Answer for question #{{loop.index}}: {{ question.render_answer() }}
 {% endfor %}
 """)
 
